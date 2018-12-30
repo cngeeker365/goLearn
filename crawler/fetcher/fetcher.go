@@ -24,19 +24,10 @@ func Fetch(url string)([]byte, error) {
 		return nil, fmt.Errorf("wrong status code: %d", resp.StatusCode)
 	}
 
-
-	//utf8Reader :=transform.NewReader(resp.Body, simplifiedchinese.GBK.NewDecoder())
 	bodyReader := bufio.NewReader(resp.Body)
 	encoding := determineEncoding(bodyReader)
 	utf8Reader :=transform.NewReader(bodyReader,  encoding.NewDecoder())
 	return ioutil.ReadAll(utf8Reader)
-
-	//all, err := ioutil.ReadAll(resp.Body)
-	//if err != nil {
-	//	panic(err)
-	//}
-	////fmt.Printf("%s\n", all)
-	//fmt.Println()
 }
 
 func determineEncoding(r *bufio.Reader) encoding.Encoding{

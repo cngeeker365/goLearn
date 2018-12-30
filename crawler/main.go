@@ -11,7 +11,3 @@ func main() {
 		ParserFunc:parser.ParseCityList,
 	})
 }
-
-
-
-
