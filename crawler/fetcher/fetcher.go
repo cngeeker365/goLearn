@@ -10,9 +10,17 @@ import (
 	"io/ioutil"
 	"log"
 	"net/http"
+	"time"
 )
 
+//http.Get不能过快，可能会出发目标网站的反扒机制
+//突破反扒的机制：如限速、更换UserAgent、虚拟IP
+
+var rateLimiter = time.Tick(10 * time.Millisecond)
+
 func Fetch(url string)([]byte, error) {
+	<- rateLimiter
+
 	resp, err := http.Get(url)
 	if err != nil {
 		panic(err)
