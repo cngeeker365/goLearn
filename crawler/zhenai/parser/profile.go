@@ -12,8 +12,9 @@ var num = regexp.MustCompile(`([0-9]+)`)
 
 func ParseProfile(contents []byte, name string) engine.ParseResult {
 	profile := model.Profile{}
-	profile.Name = name
+	//profile.Name = name
 	//profile.Name = string(base.FindAllSubmatch(contents, 1)[0][1])
+
 
 	commonMatches:=common.FindAllSubmatch(contents, -1)
 	extractMatches(commonMatches, &profile)
@@ -21,6 +22,8 @@ func ParseProfile(contents []byte, name string) engine.ParseResult {
 	result := engine.ParseResult{
 		Items:[]interface{}{profile},
 	}
+
+	profile.Info = append(profile.Info, name)
 
 	return result
 }

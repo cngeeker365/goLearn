@@ -1,7 +1,7 @@
 package model
 
 type Profile struct {
-	Name 			string
+	//Name 			string
 	Info 			[]string
 	//Gender			string
 	//Age 			int
