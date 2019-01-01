@@ -3,6 +3,7 @@ package parser
 import (
 	"awesomeProject/crawler/engine"
 	"regexp"
+	"strings"
 )
 
 //const cityReg = `<a href="(http://album.zhenai.com/u/[0-9]+)"[^>]*>([^<]+)</a>`
@@ -16,7 +17,7 @@ func ParseCity(contents []byte) engine.ParseResult {
 	result := engine.ParseResult{}
 	
 	for _,m := range matches {
-		name := string(m[2])
+		name := strings.TrimSpace(string(m[2]))
 		//result.Items = append(result.Items, "User "+strings.TrimSpace(string(m[2])))
 		result.Requests = append(result.Requests, engine.Request{
 			Url: string(m[1]),

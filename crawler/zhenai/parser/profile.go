@@ -3,6 +3,7 @@ package parser
 import (
 	"awesomeProject/crawler/engine"
 	"awesomeProject/crawler/model"
+	"fmt"
 	"regexp"
 )
 
@@ -19,12 +20,13 @@ func ParseProfile(contents []byte, name string) engine.ParseResult {
 	commonMatches:=common.FindAllSubmatch(contents, -1)
 	extractMatches(commonMatches, &profile)
 
+	profile.Info = append(profile.Info, name)
+
 	result := engine.ParseResult{
 		Items:[]interface{}{profile},
 	}
 
-	profile.Info = append(profile.Info, name)
-
+	fmt.Println(profile)
 	return result
 }
 
