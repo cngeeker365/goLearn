@@ -9,7 +9,7 @@ var cont = `<div class="introduce-content" data-v-3e01facc data-v-0566ce42><div 
 func TestParseProfile(t *testing.T) {
 	contents, _ :=fetcher.Fetch("http://m.zhenai.com/u/1320662004")
 	//fmt.Printf("%s", contents)
-	ParseProfile(contents,"微微一笑")
+	ParseProfile(contents,"微微一笑", "http://m.zhenai.com/u/1320662004")
 }
 
 

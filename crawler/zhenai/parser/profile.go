@@ -10,8 +10,9 @@ import (
 //var base = regexp.MustCompile(`<span data-v-10352ec0>([^<]+)</span>`)
 var common = regexp.MustCompile(`<div class="tag" data-v-3e01facc>([^<]+)</div>`)
 var num = regexp.MustCompile(`([0-9]+)`)
+var idUrlReg = regexp.MustCompile(`http://m.zhenai.com/u/([\d]+)`)
 
-func ParseProfile(contents []byte, name string) engine.ParseResult {
+func ParseProfile(contents []byte, name string, url string) engine.ParseResult {
 	profile := model.Profile{}
 	//profile.Name = name
 	//profile.Name = string(base.FindAllSubmatch(contents, 1)[0][1])
@@ -23,11 +24,26 @@ func ParseProfile(contents []byte, name string) engine.ParseResult {
 	profile.Info = append(profile.Info, name)
 
 	result := engine.ParseResult{
-		Items:[]interface{}{profile},
+		Items:[]engine.Item{
+			{
+				Url: url,
+				Type: "zhenai",
+				Id: extractString([]byte(url), idUrlReg),
+				Payload: profile,
+			},
+		},
 	}
 
 	fmt.Println(profile)
 	return result
+}
+
+func extractString(data []byte, reg *regexp.Regexp) string {
+	matches:=reg.FindAllSubmatch(data, -1)
+	if len(matches)==0{
+		return ""
+	}
+	return string(matches[0][1])
 }
 
 func extractMatches(matches [][][]byte, profile *model.Profile) {
