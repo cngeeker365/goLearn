@@ -12,11 +12,14 @@ func main() {
 	//	Url: "http://www.zhenai.com/zhenghun",
 	//	ParserFunc:parser.ParseCityList,
 	//})
-
+	itemChan, err := persist.ItemSaver("dating_profile")
+	if nil != err {
+		panic(err)
+	}
 	e := engine.ConcurrentEngine{
-		Scheduler: &scheduler.QueuedScheduler{},
-		WorkerCount: 10,
-		ItemChan: persist.ItemSaver(),
+		Scheduler: 		&scheduler.QueuedScheduler{},
+		WorkerCount: 	10,
+		ItemChan: 		itemChan,
 	}
 	//从首页进行爬取
 	e.Run(engine.Request{

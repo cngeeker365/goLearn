@@ -3,7 +3,6 @@ package parser
 import (
 	"awesomeProject/crawler/engine"
 	"awesomeProject/crawler/model"
-	"fmt"
 	"regexp"
 )
 
@@ -34,7 +33,6 @@ func ParseProfile(contents []byte, name string, url string) engine.ParseResult {
 		},
 	}
 
-	fmt.Println(profile)
 	return result
 }
 

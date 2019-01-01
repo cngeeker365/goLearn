@@ -21,16 +21,16 @@ func TestSave(t *testing.T)  {
 			"何时结婚:时机成熟就结婚","微微一笑"}},
 	}
 
-	//Save expected profile
-	err := save(expected)
-	if err != nil {
+	//TODO: Try to start up elastic search using docker go client.
+	client,err:= elastic.NewClient(elastic.SetSniff(false))
+	if err!=nil{
 		panic(err)
 	}
 
-	//TODO: Try to start up elastic search using docker go client.
-
-	client,err:= elastic.NewClient(elastic.SetSniff(false))
-	if err!=nil{
+	//Save expected profile
+	const index = "dating_test"
+	err = save(client, index, expected)
+	if err != nil {
 		panic(err)
 	}
 

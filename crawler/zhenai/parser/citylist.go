@@ -7,7 +7,7 @@ import (
 
 const cityListReg  = `{linkContent:"([^"]+)",linkURL:"(http://m.zhenai.com/zhenghun/[0-9a-z]+)"}`
 
-func ParseCityList(contents []byte) engine.ParseResult{
+func ParseCityList(contents []byte, _ string) engine.ParseResult{
 	re:=regexp.MustCompile(cityListReg)
 	matches :=re.FindAllSubmatch(contents,-1)
 

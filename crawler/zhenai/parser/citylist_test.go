@@ -11,7 +11,7 @@ func TestParseCityList(t *testing.T) {
 	if err!=nil {
 		panic(err)
 	}
-	result :=ParseCityList(contents)
+	result :=ParseCityList(contents,"")
 
 	t.Logf("result have %d requests\n", len(result.Requests))
 	t.Logf("result have %d items\n", len(result.Items))

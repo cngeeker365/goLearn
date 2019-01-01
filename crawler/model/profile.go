@@ -1,8 +1,8 @@
 package model
 
 type Profile struct {
-	Url				string
-	Id 				string
+	//Url				string
+	//Id 				string
 
 	//Name 			string
 	Info 			[]string
