@@ -2,17 +2,15 @@ package main
 
 import (
 	"awesomeProject/crawler/engine"
-	"awesomeProject/crawler/persist"
 	"awesomeProject/crawler/scheduler"
 	"awesomeProject/crawler/zhenai/parser"
+	"awesomeProject/crawler_distributed/config"
+	"awesomeProject/crawler_distributed/persist/client"
+	"fmt"
 )
 
 func main() {
-	//engine.SimpleEngine{}.Run(engine.Request{
-	//	Url: "http://www.zhenai.com/zhenghun",
-	//	ParserFunc:parser.ParseCityList,
-	//})
-	itemChan, err := persist.ItemSaver("dating_profile")
+	itemChan, err := client.ItemSaver(fmt.Sprintf(":%d", config.ItemSaverPort))
 	if nil != err {
 		panic(err)
 	}
@@ -24,7 +22,7 @@ func main() {
 	//从首页进行爬取
 	e.Run(engine.Request{
 		Url: "http://www.zhenai.com/zhenghun",
-		Parser: engine.NewFuncParser(parser.ParseCityList,"ParseCityList"),
+		ParserFunc:parser.ParseCityList,
 	})
 
 	//从上海市开始爬取

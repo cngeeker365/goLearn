@@ -11,7 +11,7 @@ var common = regexp.MustCompile(`<div class="tag" data-v-3e01facc>([^<]+)</div>`
 var num = regexp.MustCompile(`([0-9]+)`)
 var idUrlReg = regexp.MustCompile(`http://m.zhenai.com/u/([\d]+)`)
 
-func ParseProfile(contents []byte, name string, url string) engine.ParseResult {
+func parseProfile(contents []byte, name string, url string) engine.ParseResult {
 	profile := model.Profile{}
 	//profile.Name = name
 	//profile.Name = string(base.FindAllSubmatch(contents, 1)[0][1])
@@ -70,3 +70,20 @@ func extractMatches(matches [][][]byte, profile *model.Profile) {
 	//profile.WantChild		= strings.Split(result[17],":")[1]
 }
 
+type ProfileParster struct {
+	userName string
+}
+
+func (p * ProfileParster) Parse(content []byte, url string) engine.ParseResult {
+	return parseProfile(content, p.userName, url)
+}
+
+func (p * ProfileParster) Serialize() (name string, args interface{}) {
+	return "ProfileParser", p.userName
+}
+
+func NewProfileParser(name string) *ProfileParster{
+	return &ProfileParster{
+		userName:name,
+	}
+}

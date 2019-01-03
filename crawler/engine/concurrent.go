@@ -56,7 +56,7 @@ func createWorkerComm(in chan Request, out chan ParseResult, ready ReadyNotifier
 			ready.WorkerReady(in)
 
 			request := <- in
-			result, err := worker(request)
+			result, err := Worker(request)
 			if err !=nil{
 				continue
 			}
@@ -73,7 +73,7 @@ func createWorkerQ(out chan ParseResult, s Scheduler) {
 			s.WorkerReady(in)
 
 			request := <- in
-			result, err := worker(request)
+			result, err := Worker(request)
 			if err !=nil{
 				continue
 			}
@@ -87,7 +87,7 @@ func createWorker(in chan Request, out chan ParseResult) {
 		for {
 			// tell scheduler i'm ready
 			request := <- in
-			result, err := worker(request)
+			result, err := Worker(request)
 			if err !=nil{
 				continue
 			}
