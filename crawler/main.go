@@ -20,6 +20,7 @@ func main() {
 		Scheduler: 		&scheduler.QueuedScheduler{},
 		WorkerCount: 	10,
 		ItemChan: 		itemChan,
+		RequestProcessor: engine.Worker,
 	}
 	//从首页进行爬取
 	e.Run(engine.Request{
